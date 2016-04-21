@@ -287,7 +287,7 @@ var geoJsonLayer = 0;
 // load polygon geojson, using data to define fillColor, from local directory
 // *TO DO* rebuild file for pop density
 // *TO DO* change from click to hover, and add legend to display colors and hover data
-$.getJSON("cwp-37-towns-v8.geojson", function (data) {   // insert pathname to your local directory file
+$.getJSON("cwp-37-towns-v8.json", function (data) {   // insert pathname to your local directory file
   geoJsonLayer = L.geoJson(data, {
     style: style,
     onEachFeature: function( feature, layer) {
