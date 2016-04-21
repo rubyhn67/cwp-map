@@ -9,8 +9,6 @@ var map = L.map('map', {
 });
 
 // customize link to view source code; add your own GitHub repository
-//map.attributionControl
-//.setPrefix('Reference:' + '<br />' + '2010-14 American Community Survey 5-Year Estimates,' + '<br />' + '2009-13 American Community Survey 5-Year Estimates,' + '<br />' + '2009-13 American Community Survey 5-Year Estimates' + '<br />' + '2015 (2015 Benchmark) CT Dept. of Labor' + '<br />' + 'View <a href="http://github.com/ngocdo67/leaflet-map-panes">code on GitHub</a>, created with' + '<br />' +  '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
 map.attributionControl
 .setPrefix('Reference:' + '<br />' + 'Capital Workforce Partners 2014-15 Program Year' + '<br />' + 'View <a href="http://github.com/ngocdo67/leaflet-map-panes">code on GitHub</a>, created with' + '<br />' + '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
 
@@ -27,10 +25,7 @@ map.getPane('labels').style.pointerEvents = 'none';
 var controlLayers = L.control.layers( null, null, {
   position: "topright", // suggested: bottomright for CT (in Long Island Sound); topleft for Hartford region
   collapsed: false // false = open by default
-})/*.addTo(map)*/;
-
-// REMOVE AFTER MAP CONSTRUCTION: optional Zoom Label (also in index.html)
-//L.control.zoomLabel().addTo(map);
+});
 
 // optional: reposition zoom control other than default topleft
 //L.control.zoom({position: "topright"}).addTo(map);
@@ -40,26 +35,6 @@ var lightNoLabels = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
 }).addTo(map);
 
-// ArcGIS Online tile layer, hosted on subscription service http://trincoll.maps.arcgis.com
-/*var arcGISLabels = L.esri.tiledMapLayer({
-    url: "http://tiles.arcgis.com/tiles/5rblLCKLgS4Td60j/arcgis/rest/services/ConnecticutTownLabels/MapServer",
-    pane: 'labels'
-});
-controlLayers.addBaseLayer(arcGISLabels, 'ArcGIS Online Labels'); // replaced addOverlay with addBaseLayer for radio buttons
-
-// free CartoDB labels only layer, but insufficient detail
-var lightOnlyLabels = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-    pane: 'labels'
-});
-controlLayers.addBaseLayer(lightOnlyLabels, 'CartoDB Labels');
-
-// Mapbox
-var mapboxLabels = L.tileLayer('https://{s}.tiles.mapbox.com/v3/gmapsmania.f8637bc8/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-    pane: 'labels'
-});
-controlLayers.addBaseLayer(mapboxLabels, 'GMapsMania Mapbox Labels');*/ // originally: addOverlay
 
 // ArcGIS Online tile layer, hosted on subscription service http://trincoll.maps.arcgis.com
 var arcGISLabelsCWP = L.esri.tiledMapLayer({
@@ -68,6 +43,7 @@ var arcGISLabelsCWP = L.esri.tiledMapLayer({
 }).addTo(map);
 //controlLayers.addBaseLayer(arcGISLabelsCWP, 'ArcGIS CWP Labels'); // replaced addOverlay with addBaseLayer for radio buttons
 
+//Reset the reference each time the user changes tab
 function resetAttribute (tabnum){
   map.attributionControl.removeAttribution ("Reference");
   if (tabnum.localeCompare("1") == 0) {
@@ -87,6 +63,8 @@ function resetAttribute (tabnum){
     .setPrefix('Reference:' + '<br />' + '2015 CT Dept. of Labor	' + '<br />' + 'View <a href="http://github.com/ngocdo67/leaflet-map-panes">code on GitHub</a>, created with' + '<br />' +  '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
   }
 }
+
+//Decide the color for the polygons for each tab
 function getColor(d) {
   console.log(d);
   if(tabnum.localeCompare("2") == 0){
@@ -134,6 +112,7 @@ function getColor(d) {
   }
 }
 
+//Set style for the map
 function style (feature) {
   var color = '';
   return {
@@ -146,6 +125,7 @@ function style (feature) {
   }
 }
 
+//Set up the information window
 var info = L.control();
 
 info.onAdd = function (map) {
@@ -189,6 +169,7 @@ info.update = function (props) {
 
 info.addTo(map);
 
+//Set up the legend
 var legend = L.control({position: "bottomright"});
 
 legend.onAdd = function (map) {
@@ -196,6 +177,8 @@ legend.onAdd = function (map) {
   this.update();
   return this._div;
 }
+
+//Customize the legend for each tab
 legend.update = function (props) {
   var length = 5,
     grades2 = [30, 35, 39, 43, 47],
@@ -240,63 +223,20 @@ legend.update = function (props) {
 
 legend.addTo(map);
 
-//legend.addTo(map);
-/*var legend = L.control();
-
-// Modify grades to match the range cutoffs inserted above
-// In this example, the last grade will appear as "2+"
-legend.onAdd = function (map) {
-  var div = L.DomUtil.create('div', 'info legend'),
-    length = 5,
-    grades2 = [30.00, 33.63, 37.26, 40.90, 44.53],
-    grades3 = [25000, 45000, 65000, 85000, 105000],
-    grades4 = [1, 7.52, 14.05, 20.58, 27.11, 27.12],
-    grades5 = [1, 5.2, 6.8, 8.4, 10],
-    labels = [],
-    from, to;
-
-  for (var i = 0; i < length; i++) {
-    if (tabnum.localeCompare("2") == 0) {
-      from = grades2[i];
-      to = grades2[i + 1];
-    } else if (tabnum.localeCompare("3") == 0){
-      from = grades3[i];
-      to = grades3[i + 1]
-    } else if (tabnum.localeCompare("4") == 0){
-      from = grades4[i];
-      to = grades4[i + 1]
-    } else {
-      from = grades5[i];
-      to = grades5[i + 1]
-    }
-    labels.push(
-      '<i style="background:' + getColor(from + 1) + '"></i> ' +
-      from + (to ? '&ndash;' + to : '+'));
-  }
-  div.innerHTML = labels.join('<br>');
-  return div;
-};
-
-//if (tabnum.localeCompare("2") == 0 || tabnum.localeCompare("3") == 0 ||  tabnum.localeCompare("4") == 0 || tabnum.localeCompare("5") == 0){
-  legend.addTo(map);
-//}*/
-
 
 var geoJsonLayer = 0;
 /* POLYGON OVERLAY */
 // load polygon geojson, using data to define fillColor, from local directory
-// *TO DO* rebuild file for pop density
-// *TO DO* change from click to hover, and add legend to display colors and hover data
-$.getJSON("cwp-37-towns-v8.geojson", function (data) {   // insert pathname to your local directory file
+$.getJSON("cwp-37-towns-v8.geojson", function (data) {   
   geoJsonLayer = L.geoJson(data, {
     style: style,
     onEachFeature: function( feature, layer) {
       layer.on({
         mouseover: function (e) {
           var layer = e.target;
-          var popupText = "<b>" + feature.properties.name + "</b>"   // replace labels with those from your own geojson
+          var popupText = "<b>" + feature.properties.name + "</b>"   // Popup text: link to town profile
          + "<br><a href='" + feature.properties.profile + "'>Town Profile</a>";
-          layer.bindPopup(popupText); //add this for popup text
+          layer.bindPopup(popupText);
           layer.setStyle({
             weight: 5,
             color: '#666',
@@ -312,17 +252,13 @@ $.getJSON("cwp-37-towns-v8.geojson", function (data) {   // insert pathname to y
         mouseout: function (e) {
           geoJsonLayer.resetStyle(e.target);
           info.update();
-        }/*,
-        click: function (e) {
-          window.location.href = (feature.properties.profile);
-        }*/ // Go to website when clicked
+        }
       });
     }
   }).addTo(map);
-  //controlLayers.addOverlay(geoJsonLayer, 'Towns Served');  // insert your 'Title' to add to legend
-  //controlLayers.addOverlay(geoJsonLayer, 'CT Pop 2010');  // insert your 'Title' to add to legend
 });
 
+//Display -- if the value is null or 0
 function checkNull(val) {
   if (val == 0) {
     return "--";
@@ -334,6 +270,7 @@ function checkNull(val) {
   }
 }
 
+//Display numbers as comma separated
 function comma(val){
   while (/(\d+)(\d{3})/.test(val.toString())){
     val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
@@ -341,6 +278,7 @@ function comma(val){
   return val;
 }
 
+//Reset the map, legend, attribute when the tab is changed
 $(".toolItem").click(function() {
   $(".toolItem").removeClass("selected");
   $(this).addClass("selected");
