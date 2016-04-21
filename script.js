@@ -48,7 +48,7 @@ function resetAttribute (tabnum){
   map.attributionControl.removeAttribution ("Reference");
   if (tabnum.localeCompare("1") == 0) {
     map.attributionControl
-    .setPrefix('Reference:' + '<br />' + 'Capital Workforce Partner 2014-15 Program Year' + '<br />' + 'View <a href="http://github.com/ngocdo67/leaflet-map-panes">code on GitHub</a>, created with' + '<br />' +  '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
+    .setPrefix('Reference:' + '<br />' + 'Capital Workforce Partners 2014-15 Program Year' + '<br />' + 'View <a href="http://github.com/ngocdo67/leaflet-map-panes">code on GitHub</a>, created with' + '<br />' +  '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
   } else if (tabnum.localeCompare("2") == 0) {
     map.attributionControl
     .setPrefix('Reference:' + '<br />' + '2010-2014 American Community Survey 5-Year Estimates' + '<br />' + 'View <a href="http://github.com/ngocdo67/leaflet-map-panes">code on GitHub</a>, created with' + '<br />' +  '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
@@ -193,25 +193,25 @@ legend.update = function (props) {
       to = grades2[i + 1];
       labels.push(
       '<i style="background:' + getColor(from) + '"></i> ' +
-      (from).toFixed(1) + (to ? '&ndash;' + (to-1).toFixed(1) : '+'));
+      (from).toFixed(0) + (to ? '&ndash;' + (to-1).toFixed(0) : '+'));
     } else if (tabnum.localeCompare("3") == 0){
       from = grades3[i];
       to = grades3[i + 1];
       labels.push(
       '<i style="background:' + getColor(from) + '"></i> ' +
-      checkNull(from) + (to ? '&ndash;' + checkNull(to-1) : '+'));
+      checkNull(from) + (to ? '&ndash;' + checkNull(to) : '+'));
     } else if (tabnum.localeCompare("4") == 0){
       from = grades4[i];
       to = grades4[i + 1];
       labels.push(
       '<i style="background:' + getColor(from) + '"></i> ' +
-      (from*100).toFixed(1) + (to ? '&ndash;' + (to*100-0.1).toFixed(1) : '+'));
+      (from*100).toFixed(1) + (to ? '&ndash;' + (to*100).toFixed(1) : '+'));
     } else if (tabnum.localeCompare("5") == 0){
       from = grades5[i];
       to = grades5[i + 1];
       labels.push(
       '<i style="background:' + getColor(from) + '"></i> ' +
-      (from*100).toFixed(1) + (to ? '&ndash;' + (to*100-0.1).toFixed(1) : '+'));
+      (from*100).toFixed(1) + (to ? '&ndash;' + (to*100).toFixed(1) : '+'));
     } else {
       from = 0;
       to = 0;
