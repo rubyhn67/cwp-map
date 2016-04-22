@@ -249,7 +249,7 @@ $.getJSON("cwp-37-towns-v8.geojson", function (data) {
     style: style,
     onEachFeature: function( feature, layer) {
       layer.on({
-        mouseover: highlighFeature,
+        mouseover: highlightFeature,
         mouseout: function (e) {
           geoJsonLayer.resetStyle(e.target);
           info.update();
