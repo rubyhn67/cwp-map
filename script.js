@@ -223,7 +223,24 @@ legend.update = function (props) {
 
 legend.addTo(map);
 
+function highlightFeature (e){
+  var layer = e.target;
+  var popupText = "<b>" + feature.properties.name + "</b>"   // Popup text: link to town profile
+ + "<br><a href='" + feature.properties.profile + "'>Town Profile</a>";
+  layer.bindPopup(popupText);
+  layer.setStyle({
+    weight: 5,
+    color: '#666',
+    dashArray: '',
+    fillOpacity: 0.7
+  });
 
+  if (!L.Browser.ie && !L.Browser.opera) {
+    layer.bringToFront();
+  }
+  info.update(feature);
+ 
+}
 var geoJsonLayer = 0;
 /* POLYGON OVERLAY */
 // load polygon geojson, using data to define fillColor, from local directory
@@ -232,23 +249,7 @@ $.getJSON("cwp-37-towns-v8.geojson", function (data) {
     style: style,
     onEachFeature: function( feature, layer) {
       layer.on({
-        mouseover: function (e) {
-          var layer = e.target;
-          var popupText = "<b>" + feature.properties.name + "</b>"   // Popup text: link to town profile
-         + "<br><a href='" + feature.properties.profile + "'>Town Profile</a>";
-          layer.bindPopup(popupText);
-          layer.setStyle({
-            weight: 5,
-            color: '#666',
-            dashArray: '',
-            fillOpacity: 0.7
-          });
-
-          if (!L.Browser.ie && !L.Browser.opera) {
-            layer.bringToFront();
-          }
-          info.update(feature);
-        },
+        mouseover: highlighFeature (e),
         mouseout: function (e) {
           geoJsonLayer.resetStyle(e.target);
           info.update();
