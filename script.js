@@ -223,7 +223,7 @@ legend.update = function (props) {
 
 legend.addTo(map);
 
-function highlightFeature (e){
+function highlightFeature (e, feature){
   var layer = e.target;
   var popupText = "<b>" + feature.properties.name + "</b>"   // Popup text: link to town profile
  + "<br><a href='" + feature.properties.profile + "'>Town Profile</a>";
