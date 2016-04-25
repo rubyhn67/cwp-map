@@ -10,7 +10,7 @@ var map = L.map('map', {
 
 var back = document.createElement('back');
 back.setAttribute('href',"http://capitalworkforce.org/about-us/our-region/");
-a.innerHTML = "Back to Capital Workforce Parners Website";
+back.innerHTML = "Back to Capital Workforce Parners Website";
 // apend the anchor to the body
 // of course you can append it almost to any other dom element
 document.getElementsByTagName('body')[0].appendChild(back);
