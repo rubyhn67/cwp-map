@@ -223,7 +223,24 @@ legend.update = function (props) {
 
 legend.addTo(map);
 
+function highlightFeature (e){
+  var layer = e.target;
+  var popupText = "<b>" + layer.feature.properties.name + "</b>"   // Popup text: link to town profile
+ + "<br><a href='" + layer.feature.properties.profile + "'>Town Profile</a>";
+  layer.bindPopup(popupText);
+  layer.setStyle({
+    weight: 5,
+    color: '#666',
+    dashArray: '',
+    fillOpacity: 0.7
+  });
 
+  if (!L.Browser.ie && !L.Browser.opera) {
+    layer.bringToFront();
+  }
+  info.update(feature);
+ 
+}
 var geoJsonLayer = 0;
 /* POLYGON OVERLAY */
 // load polygon geojson, using data to define fillColor, from local directory
