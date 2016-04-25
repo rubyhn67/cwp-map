@@ -8,6 +8,13 @@ var map = L.map('map', {
   zoom: 10.2, // zoom 9 for Connecticut; 10 for Hartford county, 12 for Hartford city
 });
 
+var back = document.createElement('back');
+back.setAttribute('href',"http://capitalworkforce.org/about-us/our-region/");
+a.innerHTML = "Back to Capital Workforce Parners Website";
+// apend the anchor to the body
+// of course you can append it almost to any other dom element
+document.getElementsByTagName('body')[0].appendChild(back);
+
 // customize link to view source code; add your own GitHub repository
 map.attributionControl
 .setPrefix('Reference:' + '<br />' + 'Capital Workforce Partners 2014-15 Program Year' + '<br />' + 'View <a href="http://github.com/ngocdo67/leaflet-map-panes">code on GitHub</a>, created with' + '<br />' + '<a href="http://leafletjs.com" title="A JS library for interactive maps">Leaflet</a>');
