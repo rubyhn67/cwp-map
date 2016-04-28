@@ -137,9 +137,9 @@ info.onAdd = function (map) {
 // method that we will use to update the control based on feature properties passed
 info.update = function (props) {
   if(tabnum.localeCompare("2") == 0){
-    var age = props.properties[tabnum];
+    var age = checkNull(props.properties[tabnum]);
     this._div.innerHTML = '<h4>Median Age</h4>' +  (props ?
-        'Age: ' + checkNull(age.toFixed(1)) + ' years old' + '<br />' +
+        'Age: ' + age.toFixed(1) + ' years old' + '<br />' +
         '<i>Click on a town for full profile in PDF</i>'
         : 'Hover over a town');
   } else if(tabnum.localeCompare("3") == 0){
@@ -148,15 +148,15 @@ info.update = function (props) {
         '<i>Click on a town for full profile in PDF</i>'
         : 'Hover over a town');
   } else if(tabnum.localeCompare("4") == 0){
-    var povertyRate = props.properties[tabnum] * 100;
+    var povertyRate = checkNull(props.properties[tabnum]) * 100;
     this._div.innerHTML = '<h4>People in Poverty</h4>' +  (props ?
-        'Poverty: ' + checkNull(povertyRate.toFixed(1)) + ' %' + '<br />' +
+        'Poverty: ' + povertyRate.toFixed(1) + ' %' + '<br />' +
         '<i>Click on a town for full profile in PDF</i>'
         : 'Hover over a town');
   } else if(tabnum.localeCompare("5") == 0){
-    var unemployment = props.properties[tabnum] * 100;
+    var unemployment = checkNull(props.properties[tabnum]) * 100;
     this._div.innerHTML = '<h4>Unemployment Rate</h4>' +  (props ?
-        'Unemployment Rate: ' + checkNull(unemployment.toFixed(1)) + ' %' + '<br />' +
+        'Unemployment Rate: ' + unemployment.toFixed(1) + ' %' + '<br />' +
         '<i>Click on a town for full profile in PDF</i>'
         : 'Hover over a town');
   } else {
