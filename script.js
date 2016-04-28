@@ -256,7 +256,6 @@ $.getJSON("cwp-37-towns-v8.geojson", function (data) {
         mouseover: highlightFeature,
         mouseout: resetHighLight,
         click: highlightFeature
-        }
       });
     }
   }).addTo(map);
