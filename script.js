@@ -238,7 +238,7 @@ function highlightFeature (e){
   if (!L.Browser.ie && !L.Browser.opera) {
     layer.bringToFront();
   }
-  info.update(feature);
+  info.update(layer.feature);
  
 }
 function resetHighLight (e) {
