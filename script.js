@@ -240,7 +240,7 @@ function highlightFeature (e){
  
 }
 function resetHighLight (e) {
-  geoJsonLayer.resetStyle(e.target);
+  geoJsonLayer.resetStyle(style);
   info.update();
 }
 var geoJsonLayer = 0;
