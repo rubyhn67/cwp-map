@@ -147,13 +147,11 @@ info.update = function (props) {
         '<i>Click on a town for full profile in PDF</i>'
         : 'Hover over a town');
   } else if(tabnum.localeCompare("4") == 0){
-    var povertyRate = checkNull(props.properties[tabnum]) * 100;
     this._div.innerHTML = '<h4>People in Poverty</h4>' +  (props ?
         'Poverty: ' + (checkNull(props.properties[tabnum]) * 100).toFixed(1) + ' %' + '<br />' +
         '<i>Click on a town for full profile in PDF</i>'
         : 'Hover over a town');
   } else if(tabnum.localeCompare("5") == 0){
-    var unemployment = checkNull(props.properties[tabnum]) * 100;
     this._div.innerHTML = '<h4>Unemployment Rate</h4>' +  (props ?
         'Unemployment Rate: ' + (checkNull(props.properties[tabnum]) * 100).toFixed(1) + ' %' + '<br />' +
         '<i>Click on a town for full profile in PDF</i>'
