@@ -2,7 +2,7 @@
 Leaflet JS custom map panes, with CT town labels displayed on top of thematic polygon map
 
 ## Demo on Nora's repo (designed for zoom levels 10-14)
-http://ngocdo67.github.io/cwp-map/index.html
+http://rubyhn67.github.io/cwp-map/index.html
 
 ## Requires
 - Leaflet 1.x
